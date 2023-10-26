@@ -30,7 +30,7 @@ const LoginFormContainer = ({ component }: any) => {
   }
   }, [checkAuth]);
 const test = async () => {
-  const url = 'http://localhost:8080/api/test/htetahyan@gmail.com';
+  const url = 'http://localhost:8082/api/test/htetahyan@gmail.com';
 
   // Define the request headers separately
   const heades = {
@@ -40,7 +40,7 @@ const test = async () => {
   try {
     const response = await axios.post(url, null, {
       headers: {
-        Authorization: `Bearer ${currentToken}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
       }
    
     }); // Pass the headers in the request configuration
