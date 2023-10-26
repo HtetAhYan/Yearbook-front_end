@@ -5,6 +5,7 @@ import { RootState } from '@/state/store';
 import OtpSession from './OtpSession';
 import axios from 'axios';
 import { useGetTestMutation } from '@/state/features/AuthApiSlice';
+import { currentToken } from '@/state/features/AuthSlice';
 
 const LoginFormContainer = ({ component }: any) => {
     const AuthFormState = useSelector((state: RootState) => state.authForm);
@@ -29,7 +30,7 @@ const LoginFormContainer = ({ component }: any) => {
   }
   }, [checkAuth]);
 const test = async () => {
-  const url = 'http://localhost:8000/user';
+  const url = 'http://localhost:8080/api/test/htetahyan@gmail.com';
 
   // Define the request headers separately
   const heades = {
@@ -39,8 +40,7 @@ const test = async () => {
   try {
     const response = await axios.post(url, null, {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoidGVzc3QiLCJpYXQiOjE2OTgzMDc1NjUsInJvbGVzIjoiVVNFUiJ9.aVEKW6M0-wI6voDJlP7Up-LGfA5FMgIOJUxWHmTI7M8tyLTMBXZIULQifDyYPIRdzCvZ-M8FXNihaVx2E9WULPcodGuyy8twPtOyS5P2obZYGP2ZFvf4R0Y6o3yR4xRkKd2GQn8ZrIJ95FSGEnzhKAD4AmYCeJKFjqG9CkEDPnkPD1SquIdqsXvxH8l9uMCaQJubF9aOPXfybESLwS_tewRpykwR_Ybg00OgJTGpMeMo0vjd7um7KfmCtxdcX22t3qgS1IWDEBWeQwQOhRBuSDJfy-a3pR-QA15SkE3RfKtpu3wpUTNwBXnZXGfWkl8o-TfwmpuM9ET0LaSdMwgI1w',
-`,
+        Authorization: `Bearer ${currentToken}`,
       }
    
     }); // Pass the headers in the request configuration
@@ -56,7 +56,7 @@ const test = async () => {
       {currentData === null && component === "login" &&(
          <RegisterForm component={component} state={AuthFormState} setCheckAuth={setCheckAuth} />
       )}
-    <button onClick={() => test()}>test</button>
+    <button className='bg-black' onClick={() => test()}>test Api</button>
 
       <h1 className='text-black h1'>Forgot your password?<span className='ml-2 h1 text-red-600'>reset password</span></h1>
     </div>
