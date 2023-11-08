@@ -1,10 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 import { authApiSlice } from "./AuthApiSlice";
+import { setTokenCookie, getTokenCookie, removeTokenCookie, setUserCookie, removeUserCookie, getUserCookie } from "@/security/Cookies"; // Import the cookie functions
 
 const initialState = {
-  user: (typeof localStorage !== 'undefined' ? localStorage.getItem('user') : null) || null,
-  token: (typeof localStorage !== 'undefined' ? localStorage.getItem('token') : null) || null,
+  user: getUserCookie() || null,
+  token: getTokenCookie() || null,
 };
 
 export const authSlice = createSlice({
@@ -15,37 +16,35 @@ export const authSlice = createSlice({
       const { user, token } = action.payload;
       state.user = user;
       state.token = token;
-      if (typeof localStorage !== 'undefined') {
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
-      }
+      setUserCookie(user);
+      setTokenCookie(token); // Set the token as a cookie
     },
     logOut: (state) => {
       state.user = null;
       state.token = null;
-      if (typeof localStorage !== 'undefined') {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-      }
+      removeUserCookie(); // Remove the user from the cookie
+      removeTokenCookie(); // Remove the token cookie
     },
-  },extraReducers: (builder) => {
-      builder.addMatcher( 
-          authApiSlice.endpoints.login.matchFulfilled,
-          (state, action: PayloadAction<any>) => {
-              const { user, token } = action.payload;
-              state.user = user;
-              state.token = token;
-              if (typeof localStorage !== 'undefined') {
-                  localStorage.setItem('token', token);
-                  localStorage.setItem('user', JSON.stringify(user));
-              }
-          }
-      )
-      
-  }
+    setUser:(state,action:PayloadAction<any>)=>{
+      state.user = action.payload
+      setUserCookie(action.payload);
+    }
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      authApiSlice.endpoints.login.matchFulfilled,
+      (state, action: PayloadAction<any>) => {
+        const { user, token } = action.payload;
+        state.user = user;
+        state.token = token;
+        setUserCookie(user);
+        setTokenCookie(token); 
+      }
+    )
+  },
 });
 
-export const { setCredentials, logOut } = authSlice.actions;
+export const { setCredentials, logOut,setUser } = authSlice.actions;
 export default authSlice.reducer;
 
 export const currentUser = (state: RootState) => state.auth.user;

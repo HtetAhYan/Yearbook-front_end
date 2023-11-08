@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/state/store';
 import OtpSession from './OtpSession';
 import axios from 'axios';
-import { useGetTestMutation } from '@/state/features/AuthApiSlice';
+import { useGetTestMutation } from '@/state/features/baseApi';
 import { currentToken } from '@/state/features/AuthSlice';
 
 const LoginFormContainer = ({ component }: any) => {
@@ -40,9 +40,9 @@ const test = async () => {
   try {
     const response = await axios.post(url, null, {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`,
+        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJodGV0YWh5YW5AZ21haWwuY29tIiwiaWF0IjoxNjk4MzEwMDk4LCJleHAiOjE2OTgzOTY0OTh9.TCuc3jbPR845aFLKVkMd1quAXKpTmJzJvbNw-5wkQFI`,
       }
-   
+   ,
     }); // Pass the headers in the request configuration
     console.log('Response data:', response.data);
     // Handle the response data as needed
@@ -56,7 +56,7 @@ const test = async () => {
       {currentData === null && component === "login" &&(
          <RegisterForm component={component} state={AuthFormState} setCheckAuth={setCheckAuth} />
       )}
-    <button className='bg-black' onClick={() => test()}>test Api</button>
+    <button className='bg-black' onClick={() => testquery("htetahyan@gmail.com")}>test Api</button>
 
       <h1 className='text-black h1'>Forgot your password?<span className='ml-2 h1 text-red-600'>reset password</span></h1>
     </div>

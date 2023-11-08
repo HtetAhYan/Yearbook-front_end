@@ -3,6 +3,8 @@
 import React from 'react'
 
 import dynamic from 'next/dynamic'
+import { GetServerSideProps } from 'next';
+import Cookies from 'universal-cookie';
 
 const GeneralForm = dynamic(() => import('@/components/get-started/GeneralForm'), { loading: () => <div>Loading...</div> });
 const BackBtn = dynamic(() => import('@/components/general/BackBtn'), { loading: () => <div>Loading...</div> });
@@ -16,3 +18,17 @@ const index = () => {
 }
 
 export default index
+export  const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const cookies = new Cookies(req.headers.cookie);
+  const token = cookies.get("token");
+  const wildCard = token || [];
+if (wildCard?.length !== 0) {
+  return {
+    redirect: {
+      destination: '/',
+      permanent: false,
+    },}}
+  return {
+    props: {  },
+  };
+};

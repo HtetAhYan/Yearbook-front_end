@@ -1,6 +1,7 @@
 import { BaseQueryFn, FetchArgs, FetchBaseQueryError, fetchBaseQuery } from "@reduxjs/toolkit/query"
 import { logOut, setCredentials } from "./AuthSlice"
 import { RootState } from "../store"
+import toast from "react-hot-toast"
 
 /* import {
   BaseQueryFn,
@@ -75,7 +76,7 @@ type prepareHeaders = (
 
 const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:8082/api',
-  credentials: 'include',
+
   prepareHeaders: (headers, { getState }) => {
     console.log('prepareHeaders called');
     const token = (getState() as RootState).auth.token; 
@@ -84,9 +85,8 @@ const baseQuery = fetchBaseQuery({
       console.log('token', token);
       headers.set('Authorization', `Bearer ${token}`);
     }
-    headers.set('Accept', 'application/json');
-    headers.set('Content-Type', 'application/json');
-    
+
+
     return headers;
   }
 });
@@ -96,9 +96,11 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
   api,
   extraOptions
 ) => {
-  let result = await baseQuery(args, api, extraOptions);
+  let result:any = await baseQuery(args, api, extraOptions);
   console.log('res', result);
-
+if(result.error?.error && result.error.originalStatus!==200){
+ alert(result.error.error)
+}
   if (result.error?.status === 401) {
     // Handle reauthentication logic here if necessary
     // For example, you can refresh the token and retry the request

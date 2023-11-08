@@ -15,13 +15,13 @@ const config: Config = {
      "screen":"100vh"
     },
     screens: {
-      'tablet': '640px',
+      'tablet': '768px',
       // => @media (min-width: 640px) { ... }
 
-      'laptop': '1024px',
+      'laptop': '968px',
       // => @media (min-width: 1024px) { ... }
 
-      'desktop': '1280px',
+      'desktop': '1560px',
       // => @media (min-width: 1280px) { ... }
     },
     fontFamily: {
@@ -32,6 +32,10 @@ const config: Config = {
     extend: {
       backgroundImage: {
         
+      },
+       transform: {
+         '45': '45deg',
+         '75': '75deg',
       },
     },
   },

@@ -46,24 +46,18 @@ export const authApiSlice = baseApi.injectEndpoints({
         return {
           url: 'v1/auth/authenticate',
           method: 'POST',
-      
+          
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
 
           body: JSON.stringify(credentials),
         }
       }
     })
-    , getTest: builder.mutation({
-            query: (url) => {
-                return {
-                    url: `/test/${url}`,
-                  method: 'POST',
-                  credentials: 'include',
-                  
-               
-                }
-            }
-        })
+    ,
   }),
 });
 
-export const { useRegisterMutation,useRequestOtpMutation,useVerifyOtpMutation,useLoginMutation,useGetTestMutation } = authApiSlice;
+export const { useRegisterMutation,useRequestOtpMutation,useVerifyOtpMutation,useLoginMutation } = authApiSlice;

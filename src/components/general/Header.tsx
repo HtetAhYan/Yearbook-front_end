@@ -2,6 +2,9 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import Menu from './Menu';
 import LoginBtn from './LoginBtn';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/state/store';
+import { useRouter } from 'next/router';
 
 const Logo = dynamic(() => import('@/components/general/Logo'), {
   loading: () => (
@@ -9,23 +12,29 @@ const Logo = dynamic(() => import('@/components/general/Logo'), {
   ),
 });
 
+
 const Header = () => {
   const [showNavbar, setShowNavbar] = useState(false);
+  const router = useRouter();
 
+     useLayoutEffect(() => {
+    let shouldShowNavbar = false;
 
-  useLayoutEffect(() => {
-    // Use the window object inside a useEffect with client-side rendering in mind.
-    if (typeof window !== 'undefined') {
-      setShowNavbar(window.location.href !== 'http://localhost:3000/get-started');
+    for (const route of ['/','/yearbook']) {
+      if (router.pathname === route) {
+        shouldShowNavbar = true;
+        break;
+      }
     }
-  }, []);
+
+    setShowNavbar(shouldShowNavbar);
+  }, [router.pathname]);
 
   return (
     showNavbar && (
-      <div className={ `text-black justify-between items-center w-full h-header py-4 px-6 flex  ${showNavbar ? '' : 'hidden'}`}>
+      <div className={ `text-black justify-between items-center w-full  h-header py-4 px-6 flex  ${showNavbar ? '' : 'hidden'}`}>
         <Logo />
-        <Menu />
-        <LoginBtn />
+ <LoginBtn />
       </div>
     )
   );

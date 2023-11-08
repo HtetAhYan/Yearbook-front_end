@@ -2,7 +2,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-    current: 2,
+    current: 
+        1,
     register: [
         {
             id: 1,

@@ -4,7 +4,7 @@ import Logo from '../general/Logo'
 
 import dynamic from 'next/dynamic';
 
-const RegisterFormContainer =dynamic(() => import('./RegisterFormContainer'), { loading: () => <div>Loading...</div> });
+const RegisterFormContainer =dynamic(() => import('./FinalFormContainer'), { loading: () => <div>Loading...</div> });
 const LoginFormContainer = dynamic(() => import('./LoginFormContainer'), { loading: () => <div>Loading...</div> });
 
 
@@ -30,7 +30,7 @@ const GeneralForm = () => {
 
              
         <h1 className='text-black text-lg'>
-    {currentComponent === "register" ? "Already have an account" : "Don't have an account"}
+    {currentComponent === "register" ?"Already have an account" : "Don't have an account"}
     <span className='text-blue-600 ml-2 font-semibold cursor-pointer' onClick={() => setCurrentComponent(currentComponent === "register" ? "login" : "register")}>{currentComponent === "register" ? "Login" : "Register"}</span>
   </h1></div>
     
