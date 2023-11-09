@@ -45,3 +45,19 @@ body {
     -webkit-text-stroke-color: currentColor;
   }
 }
+@keyframes borderAnimation {
+  0% {
+    border-color: rgb(0, 225, 255);
+  }
+  50% {
+    border-color: rgb(7, 230, 182);
+  }
+  100% {
+    border-color: rgb(0, 225, 255);
+  }
+}
+
+.animate-border {
+  border: 4px solid transparent; /* Set the initial border as transparent */
+  animation: borderAnimation 1.5s infinite;
+}

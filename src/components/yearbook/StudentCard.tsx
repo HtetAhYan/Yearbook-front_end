@@ -1,17 +1,20 @@
 import Image from 'next/image';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import Img from '@/assets/hero4.jpg';
 import Likes from './Likes';
 import dynamic from 'next/dynamic';
 import { Chip, Skeleton, User } from '@nextui-org/react';
 const Comments=dynamic(()=>import('./comments'),{loading:() => <div>Loading...</div>})
-const StudentCard = ({ avatar,name, status, campus, grade, yearbookImage, year, likes, comment }: any) => {
+const StudentCard = ({ avatar, name, status, campus, grade, yearbookImage, year, likes, comment }: any) => {
+  useEffect(() => {console.log(year);
   
-  
+    
+  },[year])
   const [isLoading, setLoading] = useState(true);
+
   const currentYear=year?year:'2020'
   return (
-    <div className="bg-white  shadow-lg rounded-lg w-[100%] h-[100%] relative overflow-hidden">
+   <div className="bg-white shadow-lg rounded-lg w-[100%] h-[100%] relative overflow-hidden border-gray-400 border-8 animate-border">
       {/* Student Photo */}
      
       <div className='bg-rose-800 absolute z-10  top-0 w-[7%]  grid justify-center rounded-sm'>
@@ -23,13 +26,13 @@ const StudentCard = ({ avatar,name, status, campus, grade, yearbookImage, year, 
            {letter}
          </div>
        ))}
-      </div>     <Skeleton isLoaded={yearbookImage===null } className="rounded-lg">
+      </div>     <Skeleton isLoaded={yearbookImage!==null } className="">
       <Image src={yearbookImage?yearbookImage:Img} alt="Student" className={`
           z-0
        
         focus:ring-4 transform active:scale-[95%] transition-transform
               duration-700 ease-in-out group-hover:opacity-75
-            rounded-t-lg
+      
               ${
                 isLoading
                   ? "scale-105 blur-xl grayscale"

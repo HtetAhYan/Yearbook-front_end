@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import DropDownComponent from './DropDownComponent';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/state/store';
-import SearchBarComponent from './SearchBarComponent';
+
 
 const UniversalDropDown = () => {
  const [showNavbar, setShowNavbar] = useState(false);

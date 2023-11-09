@@ -14,6 +14,7 @@ const config: Config = {
     "header": "7vh",
      "screen":"100vh"
     },
+    
     screens: {
       'tablet': '768px',
       // => @media (min-width: 640px) { ... }
@@ -33,10 +34,13 @@ const config: Config = {
       backgroundImage: {
         
       },
+      
        transform: {
          '45': '45deg',
          '75': '75deg',
       },
+       
+       
     },
   },
   darkMode: 'class',

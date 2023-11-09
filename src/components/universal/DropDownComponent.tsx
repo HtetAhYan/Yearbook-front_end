@@ -1,13 +1,20 @@
 import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react';
-import React from 'react'
+import { AnyAction } from '@reduxjs/toolkit';
+import React, { useEffect } from 'react'
 import {MdOutlineKeyboardArrowDown} from 'react-icons/md'
-const DropDownComponent = ({items}:any) => {
+import { useDispatch } from 'react-redux';
+const DropDownComponent = ({items, func}: any) => {
+  
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([items[0] || ""]));
 
   const selectedValue = React.useMemo(
     () => Array.from(selectedKeys).join(", ").replaceAll("_", " "),
     [selectedKeys]
   );
+  const dispatch=useDispatch()
+  useEffect(()=>{
+        dispatch(func(selectedValue))
+  },[selectedValue])
 
   return (
     <Dropdown showArrow className='text-black ' backdrop="blur">
@@ -29,7 +36,14 @@ const DropDownComponent = ({items}:any) => {
         selectionMode="single"
               selectedKeys={selectedKeys}
               // @ts-ignore
-        onSelectionChange={setSelectedKeys}
+        onSelectionChange={(key:any) => {
+          setSelectedKeys(key);
+    
+        
+          
+      
+        
+        }}
       >{items?.map((item:any)=>{
         return <DropdownItem key={item}> {item}</DropdownItem>
       })}

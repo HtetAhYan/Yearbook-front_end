@@ -9,10 +9,13 @@ import { usePostProfileMutation } from "@/state/features/baseApi";
 import { setUser } from "@/state/features/AuthSlice";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
+import { setYearBookImage } from "../create/structure/CardStructureSlice";
 export default function App({ selectedFile, isOpen, onOpen, onOpenChange,path }: any) {
     const dispatch = useDispatch()
     const router=useRouter()
     const cropperRef = useRef<CropperRef>(null);
+
+    
 const [upload,{isLoading}]=usePostProfileMutation()
     const user = useSelector((state: RootState) => state.auth.user)
    
@@ -53,6 +56,7 @@ const [upload,{isLoading}]=usePostProfileMutation()
                             <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
                             <ModalBody>
                                 <FixedCropper
+                                    //@ts-ignore
                                     ref={cropperRef}
 
                                     src={URL.createObjectURL(selectedFile)}
@@ -70,7 +74,7 @@ const [upload,{isLoading}]=usePostProfileMutation()
                                 <Button color="danger" variant="light" onPress={onClose}>
                                     Change
                                 </Button>
-                                <Button color="primary" onPress={() => onCrop({cropperRef,user,upload,dispatch,router,path})}>
+                                <Button color="primary" onPress={() => onCrop({cropperRef,user,upload,dispatch,router,path,onClose})}>
                                    Submit
                                 </Button>
                             </ModalFooter>
@@ -82,33 +86,37 @@ const [upload,{isLoading}]=usePostProfileMutation()
     );
 }
 
-const onCrop = ({cropperRef,user,upload,dispatch,router,path}:any) => {
+const onCrop = ({cropperRef,user,upload,dispatch,router,path,onClose}:any) => {
         console.log(user);
         toast.loading("Updating profile",{duration:2000})
-        if (cropperRef.current) {
+    if (cropperRef.current) {
+            
+        if (path !== 'create') {
             fetch(cropperRef.current.getCanvas()?.toDataURL() || "")
                 .then(response => response.blob())
-                .then(async(blob )=> {
-                    const file = new File([blob], `${user?.fullName}'s_avatar`);
-                    if(path!=='create'){
-           const response = await upload({ id: user?.id, file })
+                .then(async (blob) => {
+                    const file = new File([blob], `${user?.fullName}'s_avatar`, { type: blob.type || 'image/png' });
+                  
+                    const response = await upload({ id: user?.id, file })
                    
-                   console.log(response);
+                    console.log(response);
                    
                     if (response.error) {
-                        toast.error(response.error.status+"Access denied" || "Network error")
+                        toast.error(response.error.status + "Access denied" || "Network error")
 
-                 }else{
+                    } else {
                         toast.success("Successfully updated profile")
                         dispatch(setUser(response?.data))
                         router.push('/profile')
                     }
-                    }else{
-                        toast.success("Successfull profile")
-           
-                    }
+                }
                   
-                      //File object
-                })
+                    //File object
+                )
+        } else {
+            toast.success("Successfull profile")
+            dispatch(setYearBookImage(cropperRef.current.getCanvas()?.toDataURL()))
+            onClose()
         }
+    }
     };

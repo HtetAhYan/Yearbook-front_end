@@ -1,25 +1,25 @@
 import React from 'react'
-import FileUploadButton from '../profile-prepare/CustomFileUploader'
-import StudentCard from '../yearbook/StudentCard'
+
 import { useSelector } from 'react-redux'
 import { RootState } from '@/state/store'
 
-
+import dynamic from 'next/dynamic'
+import BackBtn from '../general/BackBtn'
+const CreateCard=dynamic(() => import('./CreateCard'),{loading:() => <div>Loading...</div>,ssr:false})
+const StudentCard=dynamic(() => import('../yearbook/StudentCard'),{loading:() => <div>Loading...</div>,ssr:false})
 const Container = () => {
     const user = useSelector((state: RootState) => state.auth.user)
-    console.log(user);
-    
+  
+    const cardData=useSelector((state: RootState) => state.cardStructur)
   return (
-      <div className='min-h-[100vh] bg-white grid laptop:grid-cols-2 text-black h1 font-medium'>
-          <div className='h-full flex items-center justify-center'>
+    <div className='min-h-[100vh] bg-white grid laptop:grid-cols-2 text-black h1 font-medium'>
+<BackBtn/>
+          <div className='h-full flex items-center justify-center laptop:col-start-2 '>
           <div className=' w-[70vw] laptop:w-[50%]  p- flex justify-center items-center'>
               
-              <StudentCard avatar={user?.profileURL} name={user?.fullName}  campus={'Lagos, Nigeria'} grade='Year 7' status={`"A memorable quote from the student."`} yearbookImage={null}  year='2023' />
+              <StudentCard avatar={user?.profileURL} name={user?.fullName}  campus={cardData.campus} grade={cardData.grade} status={cardData.status} yearbookImage={cardData.image}  year={cardData.Year} />
           </div></div>
-          <div className='h-full laptop:w-1/2 p-4 laptop:col-start-2 bg-black'>
-              <h1>Your yearbook card Image</h1>
-              <FileUploadButton path={'create' } />
-          </div>
+         <CreateCard/>
     </div>
   )
 }
