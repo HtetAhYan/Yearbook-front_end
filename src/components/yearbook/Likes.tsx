@@ -1,33 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import HeartIcon from './HeartIcon';
+import { useGetIsLikedQuery, useToggleLikeMutation } from '@/state/features/EssentialApiSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/state/store';
+import toast from 'react-hot-toast';
 
-const Likes = () => {
-  // State to track whether the heart is filled or not
-  const [isLiked, setIsLiked] = useState(false);
+const Likes = ({  cardId }: any) => {
 
-  // Function to toggle the liked state
-  const toggleLike = () => {
-    setIsLiked(!isLiked);
-  };
-
-  // Define the number of likes
-  const likeCount = 1090;
-
-  // Function to format the like count with 'k' if it exceeds 1000
+  const user = useSelector((state: RootState) => state.auth.user)
+  const {data}=useGetIsLikedQuery({user_id:user?.id,card_id:cardId})
   const formatLikeCount = (count: number) => {
     if (count > 1000) {
       return (count / 1000).toFixed(1) + 'k';
     }
     return count;
   };
+const [toggleLike,{isLoading}]=useToggleLikeMutation()
 
+  useEffect(() => {
+  isLoading&&toast.loading("liking")
+  !isLoading && toast.dismiss();
+},[isLoading])
   return (
-    <div className='flex w-[50%] items-center '>
-      <button onClick={toggleLike}>
-        <HeartIcon isLiked={isLiked} />
+    <div className={`flex w-[50%] items-center ${isLoading || user === null && 'pointer-events-none'}`}>
+      <button  onClick={() => toggleLike({user_id:user?.id,card_id:cardId})}>
+        <HeartIcon isLiked={data?.liked} />
       </button>
       <h2 className='text-black ml-2 hero font-semibold'>
-        {formatLikeCount(likeCount)}
+        {formatLikeCount(data?.likes)}
       </h2>
     </div>
   );

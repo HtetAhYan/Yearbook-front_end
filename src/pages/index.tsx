@@ -12,17 +12,12 @@ const Page = ({ data }: any) => {
   const blackDivRef = useRef(null);
 
   useLayoutEffect(() => {
-
    const end = window.innerWidth > 768 ? (window.innerWidth > 1560 ? '+=1600' : '+=1200') : "+=1100vh";
-
     const x = window.innerWidth > 990 ? '10%' : '20vw';
     const width = window.innerWidth > 990 ? '20vw' : '60vw';
     const y = window.innerWidth > 990 ? '100vh' : '113vh'
     const finalY = window.innerWidth > 990 ? '188vh' : '180vh'
-    // Replace 'animateOnScroll' with your animation library or function
     const timeline = animateOnScroll(end);
-
-    // Animate the blackDiv element
     timeline.to(blackDivRef.current, {
       x: '90vw',
       y: '50vh',

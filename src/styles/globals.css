@@ -45,19 +45,20 @@ body {
     -webkit-text-stroke-color: currentColor;
   }
 }
-@keyframes borderAnimation {
-  0% {
-    border-color: rgb(0, 225, 255);
-  }
-  50% {
-    border-color: rgb(7, 230, 182);
-  }
-  100% {
-    border-color: rgb(0, 225, 255);
-  }
+.gradient {
+  border: 7px solid transparent;
+  
+  border-image: linear-gradient(to right, #4505b4, #06a29c,#0c2092); /* Replace with your desired gradient colors */
+  border-image-slice: 1;
 }
 
-.animate-border {
-  border: 4px solid transparent; /* Set the initial border as transparent */
-  animation: borderAnimation 1.5s infinite;
+/*** Your CSS code ***/
+.christmas {
+border-style: solid;
+border-width: 12px 10px 12px 10px;
+-moz-border-image: url(../assets/christmasborder.jpg) 575 665 303 931 fill repeat;
+-webkit-border-image: url(../assets/christmasborder.jpg) 575 665 303 931 round repeat;
+-o-border-image:url(../assets/christmasborder.jpg) 575 665 303 931 round repeat;
+border-image: url(../assets/christmasborder.jpg) 575 665 303 931 round repeat;
+
 }

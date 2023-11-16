@@ -3,13 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    Year: '',
+    Year: '2022',
     image: null,
  
     status: '',
-    campus: '',
-    grade: '',
-    border:'border-gray-300'
+    campus: 'morado',
+    grade: 'Year 1',
+    border:'christmas'
     
 }
 

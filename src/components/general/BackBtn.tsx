@@ -7,7 +7,8 @@ const BackBtn = () => {
   const router = useRouter();
   return (
 
-      <Button onClick={() => router.back()} className='bg-blue-600 bg-opacity-80 backdrop-blur-2xl h-[5vh] laptop:h-[5vh] absolute top-5 left-5 font-semibold'> Back</Button>
+    <Button onClick={() => router.back()} className='bg-blue-600 bg-opacity-80 backdrop-blur-2xl h-[5vh] laptop:h-[5vh]
+       absolute top-5 left-5 font-semibold'> Back</Button>
 
   )
 }

@@ -6,13 +6,13 @@ import OtpSession from './OtpSession';
 import axios from 'axios';
 import { useGetTestMutation } from '@/state/features/baseApi';
 import { currentToken } from '@/state/features/AuthSlice';
+import toast from 'react-hot-toast';
 
 const LoginFormContainer = ({ component }: any) => {
     const AuthFormState = useSelector((state: RootState) => state.authForm);
   const [currentData,setCurrentData]=useState<any>(null)
   const [checkAuth, setCheckAuth] = useState(false)
   const [testquery, { data }] = useGetTestMutation()
-  console.log(data);
   
   useEffect(() => {
 
@@ -24,9 +24,8 @@ const LoginFormContainer = ({ component }: any) => {
         setCurrentData(parsedData);
       }
     }
-  } catch (error) {
-  
-    console.error('Error parsing data from localStorage:', error);
+  } catch (error:any) {
+    toast.error('Error parsing data :', error);
   }
   }, [checkAuth]);
 const test = async () => {

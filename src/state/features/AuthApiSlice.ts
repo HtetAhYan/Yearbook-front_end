@@ -10,9 +10,10 @@ export const authApiSlice = baseApi.injectEndpoints({
         return {
           url: 'v1/auth/register',
           method: 'POST',
-         
-   
-
+           headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
           body: JSON.stringify(credentials),
         }
         },
@@ -23,6 +24,10 @@ export const authApiSlice = baseApi.injectEndpoints({
         return {
           url: `/auth/register/request-otp/${email}`,
           method: 'POST',
+           headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
 
         }
         },

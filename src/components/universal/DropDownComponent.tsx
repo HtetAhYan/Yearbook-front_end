@@ -20,15 +20,17 @@ const DropDownComponent = ({items, func}: any) => {
     <Dropdown showArrow className='text-black ' backdrop="blur">
       <DropdownTrigger>
         <Button 
-                variant='light'
-                  className="capitalize text-black h-[35px] h1"
+          variant='light'
+   
+                  className="capitalize text-black w-full h-[35px] h1 bg-gray-300"
                   radius='sm'
                   endContent={<MdOutlineKeyboardArrowDown />}
         >
           {selectedValue}
         </Button>
       </DropdownTrigger>
-          <DropdownMenu 
+      <DropdownMenu 
+        
         
         aria-label="Single selection example"
           variant="faded"

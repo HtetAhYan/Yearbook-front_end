@@ -63,8 +63,8 @@ const [upload,{isLoading}]=usePostProfileMutation()
 
             
     stencilSize={{
-        width: 500,
-        height: 500
+        width: 400,
+        height: 250
     }}
     imageRestriction={ImageRestriction.stencil}
                                     className={'cropper'}

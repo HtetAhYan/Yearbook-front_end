@@ -5,6 +5,7 @@ import OtpSession from './OtpSession';
 import { RootState } from '@/state/store';
 import { Button } from '@nextui-org/react';
 import { setCurrent } from '@/state/slices/AuthFormSlice';
+import toast from 'react-hot-toast';
 
 const LoadingComponent = () => <div>Loading...</div>;
 
@@ -27,8 +28,8 @@ const RegisterFormContainer = ({ component }: any) => {
           setCurrentData(parsedData);
         }
       }
-    } catch (error) {
-      console.error('Error parsing data from localStorage:', error);
+    } catch (error:any) {
+      toast.error('Error parsing data :', error);
     }
   }, [checkAuth]);
 

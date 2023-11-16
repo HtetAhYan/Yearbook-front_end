@@ -48,7 +48,7 @@ console.log(res);
       setKey((prevKey: number) => prevKey + 1);
     }
   } catch (error) {
-    console.error(error);
+    // Handle any errors that occur during the request
   }
 };
 

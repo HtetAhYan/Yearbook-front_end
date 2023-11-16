@@ -24,7 +24,7 @@ const UniversalDropDown = () => {
     showNavbar && (
       <div className={`text-black  items-center w-full h-header py-4 px-[10%] flex bg-white   ${showNavbar ? '' : 'hidden'}`}>
         <div className='w-[100%] flex justify-around laptop:justify-between items-center'>
-          <DropDownComponent items={yearbookDropDownDatas.filter} />
+         {/*  <DropDownComponent items={yearbookDropDownDatas.filter} /> */}
 {/*         <DropDownComponent items={yearbookDropDownDatas.campus} />
           <DropDownComponent items={yearbookDropDownDatas.grade} />
           <SearchBarComponent hideOrNot={ "hidden laptop:block w-[40%] "} /> */}

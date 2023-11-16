@@ -99,7 +99,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
   let result:any = await baseQuery(args, api, extraOptions);
   console.log('res', result);
 if(result.error?.error && result.error.originalStatus!==200){
- alert(result.error.error)
+/*  alert(result.error.data) */
 }
   if (result.error?.status === 401) {
     // Handle reauthentication logic here if necessary

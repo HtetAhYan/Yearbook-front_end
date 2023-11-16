@@ -11,7 +11,7 @@ import { RiLockPasswordFill } from 'react-icons/ri'
 const LoginBtn = () => {
   const token = useSelector((state: RootState) => state.auth.token);
   const user = useSelector((state: RootState) => state.auth.user)
-  console.log(user);
+  
   
   return (<>
       {user ? (

@@ -1,22 +1,15 @@
 import {
     createApi,
-    fetchBaseQuery,
-    BaseQueryFn,
-    FetchArgs,
-    FetchBaseQueryError,
+
 } from '@reduxjs/toolkit/query/react';
 import { HYDRATE } from 'next-redux-wrapper';
 import { baseQueryWithReauth } from './CustomBaseQuery';
-import { profile } from 'console';
-
-
-
 export const baseApi = createApi({
     reducerPath: 'baseApi',
     baseQuery: baseQueryWithReauth,
     
     
-    tagTypes: [],
+    tagTypes: ['COMMENT','LIKE','CARDS'],
     endpoints: (builder) => ({
         getTest: builder.mutation({
             query: (url) => {
@@ -43,6 +36,68 @@ export const baseApi = createApi({
                     body: form,
                 }
             }
+        }),
+        postYearBookCard: builder.mutation({
+            query: (data) => {
+                const { user, file,cardDatas } = data
+        
+                const array = {
+                    status: cardDatas.status,
+                    year: cardDatas.Year,
+                    grade: cardDatas.grade,
+                    campus: cardDatas.campus,
+                    borderType: cardDatas.border,
+                    userProfile:user.profileURL
+                }
+                console.log('array', array);
+                const jsonData = JSON.stringify(array);
+                 const jsonBlob = new Blob([jsonData], { type: "application/json" });
+                const form = new FormData()
+                form.append('yearbook_card', jsonBlob)
+          
+                  form.append('cardImage',file)
+          
+                return {
+                    url: `/user/${user.id}/yearbook/upload`,
+                
+                    method: 'POST',
+                    body: form,
+                }
+            }
+        }),
+        getYearbooks: builder.query({
+            query: ({page,year,limit,user_id}) => {
+                return {
+                    url: `/yearbooks/basic?page=0&year=2022&limit=10&user_id=${user_id}`,
+                    method: 'GET',
+                }
+            }, providesTags: (result, error, arg) =>  result
+                ? [result.map(({
+                    
+                    res }: any) => ({ type: 'CARDS' , id: res?.id })),    { type: 'CARDS', id: 'LIST' },
+                          { type: 'CARDS', id: 'content' },]
+          : ['CARDS'],
+        })
+        ,
+        getComments: builder.query({
+            query: ({ id, page, limit }) => {
+        
+                return{
+                    url: `yearbooks/comments/${id}?limit=${page}&offset=${limit}`,
+                    method: 'GET',
+                        
+            }
+            },  providesTags: result =>
+                result
+                    ? [
+                          ...result?.comments.map((comment: { id: any; }) => ({ type: 'COMMENT', id: comment.id })),
+                          { type: 'COMMENT', id: 'LIST' },
+                          { type: 'COMMENT', id: 'content' },
+                      ]
+                    : [
+                          { type: 'COMMENT', id: 'LIST' },
+                          { type: 'COMMENT', id: 'content' },
+                      ],
         })
       }),
     
@@ -55,4 +110,4 @@ export const baseApi = createApi({
 });
 
 export default baseApi;
-export const {useGetTestMutation ,usePostProfileMutation } = baseApi
+export const {useGetTestMutation ,usePostProfileMutation,usePostYearBookCardMutation,useGetCommentsQuery,useGetYearbooksQuery } = baseApi

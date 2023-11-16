@@ -6,7 +6,7 @@ export const onSubmitOtp = async (e: React.FormEvent,isOtpComplete:any,otp:any,v
     e.preventDefault();
 
     if (isOtpComplete) {
-        console.log('OTP Submitted:', otp.join(''));
+ 
 
         try {
             const response = await verifyOtp({ mail: currentData.email, otp: otp.join('') });

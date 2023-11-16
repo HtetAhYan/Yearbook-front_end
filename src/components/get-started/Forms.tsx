@@ -90,11 +90,11 @@ export default Forms
 
     } else {
       toast.success(response?.status)
-   if (component === "login") {
+      if (component === "login") {
+     console.log(response);
+     
   dispatch(setCredentials({ user: response?.user, token: response?.token }));
-  router.push('/').then(() => {
-    router.reload();
-  });
+/*   router.push('/') */
 }
 
       setCheckAuth(true)
