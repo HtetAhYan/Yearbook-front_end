@@ -80,5 +80,13 @@ export const Radios = [
     label: "Gradient",
     value: "gradient",
      isDisabled: true,
+  }, {
+    label: "dotted",
+    value: "animated-border ",
+     isDisabled: true,
+  }, {
+    label: "dashed",
+    value: "animated-dashed",
+     isDisabled: true,
   }
 ]

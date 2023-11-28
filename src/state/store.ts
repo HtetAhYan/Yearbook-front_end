@@ -7,13 +7,19 @@ import AuthReducer from "./features/AuthSlice";
 import { createWrapper } from "next-redux-wrapper";
 import PrepareProfileReducer  from "./features/PrepareProfileSlice";
 import yearbookReducer from "./features/yearbookSlices/yearbookSlice";
+import ProfileSettingReducer from './features/ProfileSettingSlice';
+import passwordForgotReducer from './features/passwordForgotSlice';
+
 const rootReducer = combineReducers({
   authForm: AuthFormReducer,
+  settings:ProfileSettingReducer,
   [baseApi.reducerPath]: baseApi.reducer,
   auth: AuthReducer,
   prepare: PrepareProfileReducer,
   cardStructur: cardStructureReducer,
-  yearbook:yearbookReducer
+  yearbook: yearbookReducer,
+  forgotPassword: passwordForgotReducer,
+
 
 });
 const defaultMiddlewareConfig = {

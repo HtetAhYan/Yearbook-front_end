@@ -42,13 +42,15 @@ const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   !isLoading&&toast.dismiss()
 },[isLoading])
   const submitComment = (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
+    setInputValue("");
    postComment({ user_id: user?.id, card_id: card_id, text: inputValue })
 }
   return (
     <div className='w-full '>
     <form onSubmit={submitComment}>
-          <Input color='default'   value={inputValue}
+        <Input color='default' value={inputValue}
+          isDisabled={!user}
               onChange={handleInputChange} endContent={<><GrEmoji  onClick={() => setShowEmojiPicker(!showEmojiPicker)} className='cursor-pointer text-3xl mr-2 focus:ring-4 transform active:scale-[95%] transition-transform
               duration-700 ease-in-out  text-purple-900  laptop:block' /><IoSend className='cursor-pointer text-3xl text-blue-700  focus:ring-4 transform active:scale-[90%] transition-transform
               duration-700 ease-in-out' onClick={submitComment} /></>} />

@@ -7,13 +7,15 @@ import axios from 'axios';
 import { useGetTestMutation } from '@/state/features/baseApi';
 import { currentToken } from '@/state/features/AuthSlice';
 import toast from 'react-hot-toast';
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/react';
+import ForgetPasswordModal from '../account/ForgetPasswordModal';
 
 const LoginFormContainer = ({ component }: any) => {
     const AuthFormState = useSelector((state: RootState) => state.authForm);
   const [currentData,setCurrentData]=useState<any>(null)
   const [checkAuth, setCheckAuth] = useState(false)
   const [testquery, { data }] = useGetTestMutation()
-  
+    const {isOpen, onOpen, onOpenChange,onClose} = useDisclosure();
   useEffect(() => {
 
   try {
@@ -28,28 +30,7 @@ const LoginFormContainer = ({ component }: any) => {
     toast.error('Error parsing data :', error);
   }
   }, [checkAuth]);
-const test = async () => {
-  const url = 'http://localhost:8082/api/test/htetahyan@gmail.com';
 
-  // Define the request headers separately
-  const heades = {
-  
-     };
-
-  try {
-    const response = await axios.post(url, null, {
-      headers: {
-        Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJodGV0YWh5YW5AZ21haWwuY29tIiwiaWF0IjoxNjk4MzEwMDk4LCJleHAiOjE2OTgzOTY0OTh9.TCuc3jbPR845aFLKVkMd1quAXKpTmJzJvbNw-5wkQFI`,
-      }
-   ,
-    }); // Pass the headers in the request configuration
-    console.log('Response data:', response.data);
-    // Handle the response data as needed
-  } catch (error) {
-    console.error('Error:', error);
-    // Handle any errors that occur during the request
-  }
-};
   return (
     <div className='w-full p-4'>
       {currentData === null && component === "login" &&(
@@ -57,7 +38,12 @@ const test = async () => {
       )}
     <button className='bg-black' onClick={() => testquery("htetahyan@gmail.com")}>test Api</button>
 
-      <h1 className='text-black h1'>Forgot your password?<span className='ml-2 h1 text-red-600'>reset password</span></h1>
+      <h1  className='text-black h1'>Forgot your password?<span onClick={onOpen} className='ml-2 h1 text-red-600'>
+     
+       forgot password
+      </span>   <ForgetPasswordModal isOpen={isOpen} onOpenChange={onOpenChange} onClose={onClose}/> </h1>
+      
+   
     </div>
   )
 }

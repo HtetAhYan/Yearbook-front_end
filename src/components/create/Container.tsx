@@ -29,7 +29,7 @@ const disabled = Object.values(cardData).some(value => value === null || value =
               
  <StudentCard avatar={user?.profileURL} name={user?.fullName}  campus={cardData.campus} grade={cardData.grade} status={`"${cardData.status}"`} yearbookImage={cardData.image}  year={cardData.Year} border={cardData.border} />
         </div>
- <Button color="primary" isDisabled={disabled} className='p-3 mt-2' variant='shadow' onClick={() => uploadCard({user,cardData,uploadYearbook,dispatch,router,data,isSuccess,status})} /* onClick={() => window.print()} */>Submit</Button>
+ <Button color="primary" isDisabled={disabled||isLoading} className='p-3 mt-2' variant='shadow' onClick={() => uploadCard({user,cardData,uploadYearbook,dispatch,router,data,isSuccess,status})} /* onClick={() => window.print()} */>Submit</Button>
       </div>
       <div className='absolute hidden laptop:block laptop:top-0 laptop:left-1/2 laptop:h-[100vh] laptop:w-[1px] bg-slate-300 '></div>
          <CreateCard/>
@@ -39,25 +39,12 @@ const disabled = Object.values(cardData).some(value => value === null || value =
 
 export default React.memo(Container)
 
-export const uploadCard = async({user,cardData,uploadYearbook,dispatch,router,data,isSuccess}:any) => {
-
+export const uploadCard = async({user,cardData,uploadYearbook,router}:any) => {
   fetch(cardData.image).then(response => response.blob())
     .then(async (blob) => {
-      const file = new File([blob], `${user?.fullName}'_yearbook`, { type: blob.type });
-
-     
+      const file = new File([blob], `${user?.fullName}+ ${Math.floor(Math.random() * 99999)}'_yearbook`, { type: blob.type });
       const res=await uploadYearbook({ user: user, file, cardDatas: cardData })
-                
-                    
       if (res?.error.originalStatus===200) {
         toast.success("Successfully updated profile")
-                        
-      } else {
-        toast.error(res?.error?.data || "Network error")
-                      
-      }
-    }
-                  
-                    //File object
-                )
-}
+        router.push('/yearbook')        
+      } else {toast.error(res?.error?.data || "Network error")}})}

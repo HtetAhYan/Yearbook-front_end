@@ -10,6 +10,7 @@ import { setUser } from "@/state/features/AuthSlice";
 import { useRouter } from "next/router";
 import toast from "react-hot-toast";
 import { setYearBookImage } from "../create/structure/CardStructureSlice";
+import { setProfileURL } from "@/state/features/ProfileSettingSlice";
 export default function App({ selectedFile, isOpen, onOpen, onOpenChange,path }: any) {
     const dispatch = useDispatch()
     const router=useRouter()
@@ -53,22 +54,20 @@ const [upload,{isLoading}]=usePostProfileMutation()
                 <ModalContent>
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-1">Edit photo</ModalHeader>
                             <ModalBody>
-                                <FixedCropper
+                             <FixedCropper
                                     //@ts-ignore
                                     ref={cropperRef}
 
                                     src={URL.createObjectURL(selectedFile)}
 
             
-    stencilSize={{
-        width: 400,
-        height: 250
-    }}
+    stencilSize={path !== 'create' ? {width: 400, height: 250} : {width: 400, height: 400}}
+                                    stencilComponent={path !== 'create' ? CircleStencil : RectangleStencil}
     imageRestriction={ImageRestriction.stencil}
                                     className={'cropper'}
-                                />
+                                />   
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="danger" variant="light" onPress={onClose}>
@@ -87,15 +86,15 @@ const [upload,{isLoading}]=usePostProfileMutation()
 }
 
 const onCrop = ({cropperRef,user,upload,dispatch,router,path,onClose}:any) => {
-        console.log(user);
+       
         toast.loading("Updating profile",{duration:2000})
     if (cropperRef.current) {
             
-        if (path !== 'create') {
+        if (path === null) {
             fetch(cropperRef.current.getCanvas()?.toDataURL() || "")
                 .then(response => response.blob())
                 .then(async (blob) => {
-                    const file = new File([blob], `${user?.fullName}'s_avatar`, { type: blob.type || 'image/png' });
+                    const file = new File([blob], `${user?.fullName + Math.floor(Math.random() * 99999)}'s_avatar`, { type: blob.type || 'image/png' });
                   
                     const response = await upload({ id: user?.id, file })
                    
@@ -107,12 +106,15 @@ const onCrop = ({cropperRef,user,upload,dispatch,router,path,onClose}:any) => {
                     } else {
                         toast.success("Successfully updated profile")
                         dispatch(setUser(response?.data))
-                        router.push('/profile')
+                        router.push('/yearbook')
                     }
                 }
                   
                     //File object
                 )
+        } if (path === 'settings') {
+            dispatch(setProfileURL(cropperRef.current.getCanvas()?.toDataURL()))
+         onClose()
         } else {
             toast.success("Successfull profile")
             dispatch(setYearBookImage(cropperRef.current.getCanvas()?.toDataURL()))

@@ -63,19 +63,20 @@ export const baseApi = createApi({
                     method: 'POST',
                     body: form,
                 }
-            }
+            },invalidatesTags: ['CARDS']
         }),
         getYearbooks: builder.query({
-            query: ({page,year,limit,user_id}) => {
+            query: ({ page, year, limit, campus, grade,keyword }) => {
+                
                 return {
-                    url: `/yearbooks/basic?page=0&year=2022&limit=10&user_id=${user_id}`,
+                    url: `/yearbooks/basic?page=${page}&limit=${limit}&year=${year}&campus=${campus}&grade=${grade}&keyword=${keyword}`,
                     method: 'GET',
                 }
             }, providesTags: (result, error, arg) =>  result
-                ? [result.map(({
+                ? [result?.cards.map(({
                     
                     res }: any) => ({ type: 'CARDS' , id: res?.id })),    { type: 'CARDS', id: 'LIST' },
-                          { type: 'CARDS', id: 'content' },]
+                          ]
           : ['CARDS'],
         })
         ,
@@ -87,17 +88,27 @@ export const baseApi = createApi({
                     method: 'GET',
                         
             }
-            },  providesTags: result =>
-                result
-                    ? [
-                          ...result?.comments.map((comment: { id: any; }) => ({ type: 'COMMENT', id: comment.id })),
-                          { type: 'COMMENT', id: 'LIST' },
-                          { type: 'COMMENT', id: 'content' },
-                      ]
-                    : [
-                          { type: 'COMMENT', id: 'LIST' },
-                          { type: 'COMMENT', id: 'content' },
-                      ],
+            },providesTags: (result, error, arg) => {
+  if (result) {
+     const commentTags = result?.comments.map(( res: any ) => {
+ 
+  return { type: 'COMMENT', id: res?.id || 'UNKNOWN_ID' };
+});
+
+console.log('All Comment Tags:', commentTags);
+    return [
+      ...commentTags,
+      { type: 'COMMENT', id: 'LIST' },
+      { type: 'COMMENT', id: 'content' },
+    ];
+  } else {
+    console.log('No result, providing default tags.');
+    return [
+      { type: 'COMMENT', id: 'LIST' },
+      { type: 'COMMENT', id: 'content' },
+    ];
+  }
+},
         })
       }),
     

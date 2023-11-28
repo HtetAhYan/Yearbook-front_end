@@ -17,13 +17,13 @@ export const authSlice = createSlice({
       state.user = user;
       state.token = token;
       setUserCookie(user);
-      setTokenCookie(token); // Set the token as a cookie
+      setTokenCookie(token); 
     },
     logOut: (state) => {
       state.user = null;
       state.token = null;
-      removeUserCookie(); // Remove the user from the cookie
-      removeTokenCookie(); // Remove the token cookie
+      removeUserCookie(); 
+      removeTokenCookie(); 
     },
     setUser:(state,action:PayloadAction<any>)=>{
       state.user = action.payload

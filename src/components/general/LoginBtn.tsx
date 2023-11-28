@@ -2,14 +2,16 @@ import { RootState } from '@/state/store'
 import { Avatar, Badge, Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, User } from '@nextui-org/react'
 import Link from 'next/link'
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { IoNotifications } from 'react-icons/io5'
-import { MdLogout, MdCreateNewFolder ,MdContactSupport} from 'react-icons/md'
-import {CgProfile} from 'react-icons/cg'
-import { RiLockPasswordFill } from 'react-icons/ri'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { MdLogout, MdCreateNewFolder , MdSettings} from 'react-icons/md'
+
+
+import { logOut } from '@/state/features/AuthSlice'
+import toast from 'react-hot-toast'
 
 const LoginBtn = () => {
-  const token = useSelector((state: RootState) => state.auth.token);
+
   const user = useSelector((state: RootState) => state.auth.user)
   
   
@@ -25,7 +27,11 @@ const LoginBtn = () => {
 export default LoginBtn
 export const AvatarUi = ({ user }: any) => {
   console.log(user);
-  
+  const dispatch = useDispatch()
+  const logOutHandler=()=>{
+    dispatch(logOut())
+    toast.success("Logged out successfully")
+  }
   return (
 
           <Dropdown placement="bottom-start" backdrop='blur' showArrow  shadow='md'>
@@ -47,9 +53,9 @@ export const AvatarUi = ({ user }: any) => {
 
           }} color={item.color}>
             {item.key==="logout" ? (
-           item.label
+        <h1 onClick={() => dispatch(logOut())}>{item.label}</h1>
             ) :  
-              <Link href={{pathname:item.url}} prefetch={false} >{item.label}</Link>}
+              <Link href={{pathname:item.url}} prefetch={false}  >{item.label}</Link>}
             </DropdownItem>))}
         </DropdownMenu>
       </Dropdown>
@@ -57,27 +63,22 @@ export const AvatarUi = ({ user }: any) => {
 }
 const dropdownItems: any = [
   { key: "create_yearbook_card", url: "/yearbook/create", label: "Add Your Yearbook Card", icon: <MdCreateNewFolder className='text-xl' /> ,color:'primary' },
-   {
+ /*   {
     key: "noti",
     url: "/notifications",
     label: "Notifications",
      icon: <IoNotifications className='text-xl' />
     ,color:'warning'
-  },
+  }, */
   {
     key: "change_profile",
-    url: "/profile",
-    label: "Change Profile Picture",
-    icon: <CgProfile className='text-xl' />
+    url: "/profile-settings",
+    label: "Change Profile Settings",
+
+    icon: <MdSettings className='text-xl' />
     ,color:'success'
-  },  {
-    key: "change_password",
-    url: "/profile",
-    label: "Change Password",
-    icon: <RiLockPasswordFill className='text-xl' />
-    ,color:'secondary'
-  },
- 
+  }
+ ,
   {
     key: "logout",
     label: "Log Out",

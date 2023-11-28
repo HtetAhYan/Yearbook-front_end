@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    Year: '2022',
+    Year: null,
     image: null,
  
     status: '',

@@ -23,7 +23,7 @@ const dispatch=useDispatch()
     return (
       <div className='grid'>
         <Forms component={component} state={state} OnRegisterFieldChange={OnRegisterFieldChange} setCheckAuth={setCheckAuth} />
-= 
+
         </div>
     );
   }

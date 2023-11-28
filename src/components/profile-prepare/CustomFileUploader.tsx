@@ -17,7 +17,7 @@ const FileUploadButton = ({path}:any) => {
     <div>
       {selectedFile && (<Editor selectedFile={selectedFile} isOpen={isOpen} onOpenChange={onOpenChange} onOpen={onOpen} path={path}/>
       )}
-<Input type="file" className='' onChange={handleFileChange} />
+<Input type="file" className='mt-2' color='warning' accept='image/*' onChange={handleFileChange} />
     </div>
   );
 };

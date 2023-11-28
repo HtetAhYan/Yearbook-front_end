@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import {  useVerifyOtpMutation } from '@/state/features/AuthApiSlice';
 import { useRouter } from 'next/router';
 
+
 const OtpInput = ({ currentData, setCurrentData }: any) => {
   const router=useRouter()
   const [otp, setOtp] = useState(['', '', '', '']); // An array to store individual OTP digits
@@ -27,7 +28,7 @@ const OtpInput = ({ currentData, setCurrentData }: any) => {
     }
   };
   const dispatch = useDispatch()
-  const [verifyOtp,{isLoading}]=useVerifyOtpMutation()
+  const [verifyOtp,{isLoading,error}]=useVerifyOtpMutation()
   const handleBackspace = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === 'Backspace' && index > 0 && otp[index] === '') {
       const updatedOtp = [...otp];
@@ -43,7 +44,7 @@ const OtpInput = ({ currentData, setCurrentData }: any) => {
   const isOtpComplete = otp.every((digit) => digit !== '');
 
   return ( <>
-    <form onSubmit={(e) => onSubmitOtp(e, isOtpComplete, otp,verifyOtp,dispatch,currentData,router)} className='flex w-full justify-center mt-4'>
+    <form onSubmit={(e) => onSubmitOtp(e, isOtpComplete, otp,verifyOtp,dispatch,currentData,router,error)} className='flex w-full justify-center mt-4'>
       {otp.map((digit, index) => (
         <input
           key={index}

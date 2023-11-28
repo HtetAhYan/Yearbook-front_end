@@ -16,7 +16,7 @@ const Hero = () => {
 useLayoutEffect(() => {
   gsap.registerPlugin(ScrollTrigger)
   const fontSize = window.innerWidth > 768 ? "15em" : "5em";
-  const circleSize = window.innerWidth > 768 ? "800px" : "400px"
+  const circleSize = window.innerWidth > 768 ? "700px" : "500px"
 const end = window.innerWidth > 768 ? (window.innerWidth > 1560 ? "+=1000" : "+=750") : "+=800";
   const timeline = animateOnScroll(end);
   timeline.from(ref.current, { height: '10000px' })
@@ -27,7 +27,7 @@ const end = window.innerWidth > 768 ? (window.innerWidth > 1560 ? "+=1000" : "+=
     .fromTo(text2ref.current, { opacity: 0}, { opacity: 1, }, 2.5)
 },[])
   return (
-    <div className='h-[100vh] overflow-hidden relative flex'>
+    <div className='h-[100vh] overflow-visible relative flex'>
       <div ref={textRef} className='flex  absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2  -translate-y-1/2 text-black'>{EDUSN.map((txt: any, index: any) => {
         return <h1 className={`font-bold h1 ${index === 2 ? "text-[1.2em] text-zinc-800" : ""}`}>{txt}</h1>
 

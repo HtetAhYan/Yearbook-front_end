@@ -17,12 +17,13 @@ const { store, props } = wrapper.useWrappedStore(rest);
 
  
   return (
-       <Provider store={store}>
+      <Provider store={store}>
+              <Toaster/>
    <NextUIProvider >
     
               <div className=' dark text-foreground bg-background bg-gradient-to-r from-pink-50 via-cyan-100 to-indigo-100 min-h-screen '> <Header />
                  
-          <Toaster/><Component {...pageProps} /></div>
+      <Component {...pageProps} /></div>
         
     </NextUIProvider> </Provider>)
 }

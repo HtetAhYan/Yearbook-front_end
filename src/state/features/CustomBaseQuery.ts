@@ -78,11 +78,11 @@ const baseQuery = fetchBaseQuery({
   baseUrl: 'http://localhost:8082/api',
 
   prepareHeaders: (headers, { getState }) => {
-    console.log('prepareHeaders called');
+
     const token = (getState() as RootState).auth.token; 
 
     if (token) {
-      console.log('token', token);
+   
       headers.set('Authorization', `Bearer ${token}`);
     }
 
@@ -97,7 +97,7 @@ export const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, Fetch
   extraOptions
 ) => {
   let result:any = await baseQuery(args, api, extraOptions);
-  console.log('res', result);
+
 if(result.error?.error && result.error.originalStatus!==200){
 /*  alert(result.error.data) */
 }

@@ -7,7 +7,7 @@ import { Comment } from "./CommentModal";
 import { useGetCommentsQuery } from "@/state/features/baseApi";
 import { BiLoader } from 'react-icons/bi'
 import toast from "react-hot-toast";
-export default function Comments({ cardId }: any) {
+export default function Comments({ cardId,name }: any) {
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [query, setQuery] = useState({
@@ -26,7 +26,6 @@ export default function Comments({ cardId }: any) {
   }
 
 
-  console.log(data?.total);
 
 
   return (
@@ -69,7 +68,7 @@ export default function Comments({ cardId }: any) {
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1 font-bold">Student's Name</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1 font-bold">{ name}</ModalHeader>
               <ModalBody className="border-t-4 relative">
 
                 {/*  <Skeleton className="flex rounded-3xl w-[200px] h-[30px]"/>

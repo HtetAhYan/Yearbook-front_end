@@ -23,7 +23,7 @@ const Forms = ({ component, state, OnRegisterFieldChange, setCheckAuth }: any) =
     const mapping = component === "register" ? state?.register : state?.login;
 const router=useRouter()
   const dispatch = useDispatch();
- console.log(errors);
+
  
   const [registerUser, { isLoading, error, }] = useRegisterMutation()
     const [loginUser, { isLoading: isLoadingLogin, error: errorLogin, }] = useLoginMutation()
@@ -57,12 +57,13 @@ const router=useRouter()
       ))}
         
           <Button
-            isDisabled={isLoading}
+          isDisabled={isLoading || isLoadingLogin}
+          isLoading={isLoading || isLoadingLogin}
             type='submit'
             variant='solid'
             className='bg-blue-700 bg-opacity-80 w-[30%] justify-self-end mt-4 backdrop-blur-2xl h-[40px] laptop:h-[5vh] font-semibold'
           >
-            Register
+            {component === "register" ? "Register" : "Login"}
           </Button>
         </form>
   )
@@ -79,22 +80,32 @@ export default Forms
     const requestData = {
       email,
       password,
+      fullName
     };
 
     const response = await fetchFunc(requestData).unwrap();
 
 
-    // Handle the success response here.
-    if (response?.error === true || response.length<=0) {
-      toast.error(response?.error.status || "Network error");
+   
+    if (response?.token === null && response?.error===true || response.length <= 0) {
+      
+      toast.error(response?.status || "Network error");
 
-    } else {
+    } 
+
+    
+    else  {
       toast.success(response?.status)
       if (component === "login") {
-     console.log(response);
+    
      
-  dispatch(setCredentials({ user: response?.user, token: response?.token }));
-/*   router.push('/') */
+        dispatch(setCredentials({ user: response?.user, token: response?.token }));
+        if(response.user.profileURL===null){
+          router.push('/profile-prepare');
+        }else{
+          router.push('/yearbook');
+        }
+
 }
 
       setCheckAuth(true)
@@ -109,8 +120,12 @@ export default Forms
           current: 2,
           email: email, // Assuming you have the 'email' variable defined
           createdDate: futureTime.getTime()
-        }));
-           dispatch(setCurrent(2))
+        }))
+       
+          router.reload()
+         ;
+        dispatch(setCurrent(2))
+      
       }
    
    

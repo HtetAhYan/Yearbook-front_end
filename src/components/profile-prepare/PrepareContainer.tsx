@@ -24,16 +24,17 @@ const PrepareContainer = () => {
   },[])
 
 
- return (
-   <div ref={fadeRef } className="h-[100%] w-[100vw] flex flex-col justify-center items-center text-black relative overflow-hidden ">
-    <h1 className="h1 font-semibold text-2xl text-center">Upload Your Avatar</h1>
+  return (
+   
+   <div ref={fadeRef } className="h-[100%] w-[100vw] flex flex-col justify-center items-center background-search bg-opacity-40 text-black relative overflow-hidden ">
+    <h1 className="h1 font-semibold text-2xl text-center bg-white p-2">Upload Your Profile</h1>
     <h1
    
-      className="h1 font-semibold text-4xl text-center absolute top-[10vh] text-stroke"
+      className="h1 font-semibold text-4xl text-center absolute bg-white top-[10vh] text-stroke"
     >
       EDUSN YearBook
     </h1>
-   <Uploader/>
+      <Uploader path={null} />
 
   </div>
 );
