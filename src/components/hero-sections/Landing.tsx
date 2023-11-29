@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, {  useLayoutEffect, useRef } from 'react';
 import Image from 'next/image';
 import hero1 from '@/assets/hero1.png';
 import gsap from 'gsap';
@@ -12,7 +12,7 @@ const Landing = () => {
   const fadeRef = useRef(null);
   const parallaxRef = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Animation for fade-in effect
     gsap.fromTo(
       fadeRef.current,

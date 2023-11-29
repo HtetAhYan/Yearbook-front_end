@@ -9,6 +9,7 @@ import hero2 from '@/assets/hero3.jpg'
 import hero3 from '@/assets/hero4.jpg'
 import { useDispatch } from 'react-redux';
 import { setHero } from '@/state/slices/LoaderSlice';
+  gsap.registerPlugin(ScrollTrigger)
 const Hero = () => {
    const dispatch = useDispatch();
   const [imagesLoaded, setImagesLoaded] = useState(0);
@@ -28,7 +29,7 @@ const Hero = () => {
   const imgRef = useRef(null)
   const text2ref=useRef(null)
 useLayoutEffect(() => {
-  gsap.registerPlugin(ScrollTrigger)
+
   const fontSize = window.innerWidth > 768 ? "15em" : "5em";
   const circleSize = window.innerWidth > 768 ? "700px" : "500px"
 const end = window.innerWidth > 768 ? (window.innerWidth > 1560 ? "+=1000" : "+=750") : "+=800";
@@ -38,7 +39,11 @@ const end = window.innerWidth > 768 ? (window.innerWidth > 1560 ? "+=1000" : "+=
   .to(circleRef.current, { height: circleSize, width: circleSize,borderRadius: "50%",border: "1px solid black",opacity:'1'}, 2)
   timeline.remove(timeline)
     .fromTo(imgRef.current, { opacity: 0, scale: 0 }, { opacity: 1, scale:1.1, }, 2)
-    .fromTo(text2ref.current, { opacity: 0}, { opacity: 1, }, 2.5)
+    .fromTo(text2ref.current, { opacity: 0 }, { opacity: 1, }, 2.5)
+  return () => {
+    timeline.scrollTrigger?.kill();
+    timeline.clear()
+  }
 },[])
   return (
     <div className='h-[100vh] overflow-visible relative flex'>

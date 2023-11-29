@@ -42,9 +42,13 @@ timeline.to(imageRef.current, {
       duration: 1,
       delay: 0.2,
     });
+      return () => {
+    timeline.scrollTrigger?.kill();
+    timeline.clear()
+  }
   },[current,router])
   return (
-    <div ref={fadeRef}  className={ `${images[current].class}  hidden laptop:flex  h-[100%] opacity-0  z-10  text-black relative  flex-col justify-around  items-center py-6 laptop:py-4`}>
+    <div ref={fadeRef}  className={ `${images[current].class} flex  h-[100%] opacity-0  z-10  text-black relative  flex-col justify-around  items-center py-6 laptop:py-4`}>
       <h1 className='h1  font-semibold text-3xl text-start'>View Our Yearbook</h1>
       
       <div className=' flex justify-between relative h-[45%] laptop:h-[auto] items-center laptop:max-h-[80%]'>

@@ -68,6 +68,10 @@ useLayoutEffect(() => {
     width: '100%',
     height: '100vh',
   });
+    return () => {
+    timeline.scrollTrigger?.kill();
+    timeline.clear()
+  }
 }, []);
 
  const allLoaderValuesTrue = useSelector(areAllLoaderValuesTrue);
