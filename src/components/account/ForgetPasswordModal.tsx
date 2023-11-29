@@ -50,7 +50,7 @@ const ForgetPasswordModal = ({ isOpen, onOpenChange,onClose }: any) => {
 }
 export default ForgetPasswordModal
 export const ConfirmPassword = ({ setPasswords }: any, { passwords }: any) => {
-  console.log(passwords);
+
   const handleNewPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswords((prevPasswords: any) => ({
       ...prevPasswords,
@@ -74,14 +74,14 @@ export const ConfirmPassword = ({ setPasswords }: any, { passwords }: any) => {
 }
 const verifyPassword = async ({ email, code, verifyCode, dispatch }: any) => {
   const res = await verifyCode({ email, otp: code }).unwrap()
-  console.log(res);
+  
   res && res === true ? (toast.success("Code Verified")
     , dispatch(setStep(3))) : (toast.error("Code Not Verified"))
 }
 const handler = async ({ value, dispatch, resetPassword, verifyCode, passwords,changePassword ,onClose}: any) => {
   if (value.step === 1) {
     const res: any = await resetPassword({ email: value.email })
-    console.log(res);
+
     if (res && res?.data?.error === true) {
       toast.error(res?.data?.status)
     } if (res && res?.data?.error === false) {
@@ -93,11 +93,10 @@ const handler = async ({ value, dispatch, resetPassword, verifyCode, passwords,c
     verifyPassword({ email: value.email, code: value.code, verifyCode, dispatch })
   }
   if (value.step === 3) {
-    console.log(passwords);
     const checkedPassword = checkEqual(passwords.newPassword, passwords.confirmPassword);
     if (checkedPassword === true) {
       const res = await changePassword({ email: value.email,otp: value.code, password: passwords.newPassword })
-      console.log(res);
+    
       toast.success(res?.error?.data || "Password Changed");
       dispatch(setStep(1));
       onClose();

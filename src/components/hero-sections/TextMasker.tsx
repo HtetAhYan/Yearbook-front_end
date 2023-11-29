@@ -6,7 +6,7 @@ const TextMasker = (props: any) => {
     const maskRef = useRef(null)
     const isInView = useInView(maskRef, { once: true, margin: "-10px" })
     useEffect(() => {
-        console.log(isInView);
+
         
     },[isInView])
   return (

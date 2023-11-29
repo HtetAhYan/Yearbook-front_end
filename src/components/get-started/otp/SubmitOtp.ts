@@ -14,12 +14,13 @@ export const onSubmitOtp = async (e: React.FormEvent,isOtpComplete:any,otp:any,v
     if (isOtpComplete) {
       try {
         const response = await verifyOtp({ mail: currentData.email, otp: otp.join('') });
-        console.log(response.data?.authenticationResponse?.user);
         if (response?.data.success === false) {
           toast.error(response?.data?.error || "OTP verification failed");
         } else {
           toast.success(response?.data?.error || "OTP verified successfully");
           dispatch(setCredentials({ user: response?.data?.authenticationResponse?.user, token: response?.data?.authenticationResponse?.token }))
+          localStorage.clear();
+
             router.push('/profile-prepare');;
             
           

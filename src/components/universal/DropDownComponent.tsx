@@ -20,7 +20,7 @@ useEffect(() => {
 
 
   return (
-    <Dropdown showArrow className='text-black ' backdrop="blur">
+    <Dropdown showArrow className='text-black '>
       <DropdownTrigger>
         <Button 
           variant='light'

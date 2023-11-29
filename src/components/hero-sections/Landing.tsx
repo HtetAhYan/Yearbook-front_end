@@ -4,6 +4,8 @@ import hero1 from '@/assets/hero1.png';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import animateOnScroll from './animateOnScroll'; // Assuming animateOnScroll is correctly implemented
+import { useDispatch } from 'react-redux';
+import { setLanding } from '@/state/slices/LoaderSlice';
 gsap.registerPlugin(ScrollTrigger);
 const Landing = () => {
   // Refs for animations
@@ -29,7 +31,7 @@ const Landing = () => {
       ease: 'none',
     });
   }, []); // Run once on component mount
-
+const dispatch=useDispatch()
   return (
     <div ref={fadeRef} className='h-[88vh] laptop:flex laptop:items-center'>
        <h1 className='text-2xl mt-4 relative text-black hero font-semibold  laptop:hidden' >
@@ -38,6 +40,7 @@ const Landing = () => {
       <Image
         src={hero1}
         alt='hero'
+        onLoadingComplete={() => dispatch(setLanding())}
         className='laptop:w-[50%] laptop:h-[50%] object-cover'
       />
       <div className='w-[100%] h-[100%] relative flex-col flex'>

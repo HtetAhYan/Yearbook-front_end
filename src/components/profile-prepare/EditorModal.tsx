@@ -98,7 +98,6 @@ const onCrop = ({cropperRef,user,upload,dispatch,router,path,onClose}:any) => {
                   
                     const response = await upload({ id: user?.id, file })
                    
-                    console.log(response);
                    
                     if (response.error) {
                         toast.error(response.error.status + "Access denied" || "Network error")

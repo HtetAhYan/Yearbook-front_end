@@ -26,7 +26,6 @@ const LoginBtn = () => {
 
 export default LoginBtn
 export const AvatarUi = ({ user }: any) => {
-  console.log(user);
   const dispatch = useDispatch()
   const logOutHandler=()=>{
     dispatch(logOut())
@@ -34,13 +33,13 @@ export const AvatarUi = ({ user }: any) => {
   }
   return (
 
-          <Dropdown placement="bottom-start" backdrop='blur' showArrow  shadow='md'>
-           <Badge size='sm'   color='danger' content={"2"}>
+          <Dropdown placement="bottom-start"  showArrow  shadow='md'>
+         
       <DropdownTrigger className='cursor-pointer'>
    
          
        <Avatar src={user?.profileURL ? user?.profileURL : "https://i.pravatar.cc/150"} className='w-[30px]' isBordered  size='sm' name={user?.fullName} />
-       </DropdownTrigger>   </Badge>  
+       </DropdownTrigger>
         <DropdownMenu aria-label="User Actions" variant="flat" className='text-black ' >
           <DropdownItem color='primary' key="profile" className="h-14 gap-2 text-black ">
             <p className="font-bold">Signed in as</p>

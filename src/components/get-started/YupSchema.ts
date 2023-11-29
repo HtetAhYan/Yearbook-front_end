@@ -11,8 +11,8 @@ export const RegisterSchema = yup.object().shape({
     )
     .test(
       'co.uk',
-      'Email must end with co.uk',
-      (value:any) => value && value.endsWith('gmail.com')
+      'Email must end with co.uk or gmail.com',
+      (value:any) => value && value.endsWith('gmail.com','co.uk')
     ),
   password: yup
     .string()

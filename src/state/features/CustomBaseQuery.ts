@@ -75,7 +75,7 @@ type prepareHeaders = (
 ) => Headers | void
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8082/api',
+  baseUrl: 'https://yearbookback.edusnglobal.co.uk/api/',
 
   prepareHeaders: (headers, { getState }) => {
 

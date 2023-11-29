@@ -3,6 +3,8 @@ import Logo from '../general/Logo'
 
 
 import dynamic from 'next/dynamic';
+import { useDispatch } from 'react-redux';
+import { setClear } from '@/state/slices/AuthFormSlice';
 
 const RegisterFormContainer =dynamic(() => import('./FinalFormContainer'), { loading: () => <div>Loading...</div> });
 const LoginFormContainer = dynamic(() => import('./LoginFormContainer'), { loading: () => <div>Loading...</div> });
@@ -10,6 +12,7 @@ const LoginFormContainer = dynamic(() => import('./LoginFormContainer'), { loadi
 
 const GeneralForm = () => {
   const [currentComponent, setCurrentComponent] = useState<any>("register");
+  const dispatch = useDispatch();
   
   return (
     <div className='h-[100%] w-full flex justify-center items-center  '>
@@ -33,6 +36,7 @@ const GeneralForm = () => {
     {currentComponent === "register" ?"Already have an account" : "Don't have an account"}
           <span className='text-blue-600 ml-2 font-semibold cursor-pointer' onClick={() => {
             setCurrentComponent(currentComponent === "register" ? "login" : "register")
+            dispatch(setClear())
           localStorage.removeItem("current")
           }}>{currentComponent === "register" ? "Login" : "Register"}</span>
   </h1></div>

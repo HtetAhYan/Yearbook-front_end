@@ -48,17 +48,20 @@ const authFormSlice = createSlice({
     name: 'authForm',
     initialState,
     reducers: {
-        setCurrent: (state, action:PayloadAction<any>) => {
-               state.current = action.payload;
-},addDatas: (state, action:PayloadAction<any>) => {
- const fieldLabelToUpdate = action.payload.id;
+        setCurrent: (state, action: PayloadAction<any>) => {
+            state.current = action.payload;
+        }, addDatas: (state, action: PayloadAction<any>) => {
+            const fieldLabelToUpdate = action.payload.id;
             const updatedValue = action.payload.value;
-            const fieldToUpdate = state.register.find((field:any) => field.id === fieldLabelToUpdate);
+            const fieldToUpdate = state.register.find((field: any) => field.id === fieldLabelToUpdate);
             if (fieldToUpdate) {
                 fieldToUpdate.value = updatedValue;
             }
-}
-    },
+        }, setClear: (state) => {
+            state.register = initialState.register;
+        
+        },
+    }
 })
-export const {addDatas,setCurrent} = authFormSlice.actions
+export const {addDatas,setCurrent,setClear} = authFormSlice.actions
 export default authFormSlice.reducer;

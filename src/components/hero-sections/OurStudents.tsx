@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React, {  useLayoutEffect, useRef, useState } from 'react'
 import img1 from '@/assets/ourStudent.avif'
 import img2 from '@/assets/ourStudent2.webp'
 import img3 from '@/assets/ourStudent3.jpeg'
@@ -9,6 +9,9 @@ import { MdSkipPrevious,MdSkipNext } from "react-icons/md";
 
 import animateOnScroll from './animateOnScroll'
 import {  useRouter } from 'next/router'
+
+import { useDispatch } from 'react-redux'
+
 const OurStudents = () => {
   const classes = 'laptop:relative absolute bottom-0 h-[5vh] mx-2 bg-[#0e1129] text-xl bg-opacity-80 backdrop-blur-2xl';
   const [current, setCurrent] = useState(0);
@@ -18,18 +21,16 @@ const OurStudents = () => {
   const prev= ()=>{
     setCurrent(current === 0 ? images.length - 1 : current - 1)
   }
-  
+  const dispatch=useDispatch()
+
+
   const fadeRef = useRef(null);
   const imageRef = useRef(null);
   const router=useRouter()
   useLayoutEffect(() => {
       const end = window.innerWidth > 768 ? (window.innerWidth > 1560 ? '+=1900' : '+=1500') : "+=1200";
     const timeline=animateOnScroll(end)
-/*         timeline.from(fadeRef.current, {
-      opacity: 0,
-      duration: 1,
-      delay: 0.2,
-    }); */
+
 timeline.to(imageRef.current, {
   opacity: 1,
   duration: 1,
@@ -43,12 +44,13 @@ timeline.to(imageRef.current, {
     });
   },[current,router])
   return (
-    <div ref={fadeRef}  className={ `${images[current].class} h-[100%] opacity-0  z-10  text-black relative flex flex-col justify-around  items-center py-6 laptop:py-4`}>
+    <div ref={fadeRef}  className={ `${images[current].class}  hidden laptop:flex  h-[100%] opacity-0  z-10  text-black relative  flex-col justify-around  items-center py-6 laptop:py-4`}>
       <h1 className='h1  font-semibold text-3xl text-start'>View Our Yearbook</h1>
+      
       <div className=' flex justify-between relative h-[45%] laptop:h-[auto] items-center laptop:max-h-[80%]'>
 <Button className={classes} isIconOnly endContent={<MdSkipPrevious />} onClick={prev}></Button>
       <div className='desktop:max-h-[100%] max-h-[60vh] overflow-hidden'>
-        <Image ref={imageRef}  src={images[current].src} alt="" className='rounded-lg shadow-2xl max-h-[30vh] opacity-0 laptop:w-[60vw] laptop:max-h-[100%]'/>
+        <Image  ref={imageRef}  src={images[current].src} alt="" className='rounded-lg shadow-2xl max-h-[30vh] opacity-0 laptop:w-[60vw] laptop:max-h-[100%]'/>
         </div>
 <Button className={`${classes} right-0`}  isIconOnly endContent={<MdSkipNext />} onClick={next}></Button>
         </div>

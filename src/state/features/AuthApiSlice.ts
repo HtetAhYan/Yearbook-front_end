@@ -20,7 +20,6 @@ export const authApiSlice = baseApi.injectEndpoints({
     }),
     requestOtp:builder.mutation({
         query: (email) => {
-            console.log('email',email);
         return {
           url: `v1/auth/register/request-otp/${email}`,
           method: 'POST',
@@ -34,7 +33,6 @@ export const authApiSlice = baseApi.injectEndpoints({
     }),
     verifyOtp:builder.mutation({
       query: ( {mail,otp}) => {
-        console.log('mail',otp);
         return {
           url: `v1/auth/verify/${mail}`,
           method: 'POST',
@@ -78,7 +76,6 @@ export const authApiSlice = baseApi.injectEndpoints({
 
     ,verifyResetCode: builder.mutation({
       query: ({ email, otp }) => {
-        console.log(email, otp)
         return {
           url: 'v1/auth/verify-reset-mail/' + "htetahyan@gmail.com",
           method: 'PATCH',

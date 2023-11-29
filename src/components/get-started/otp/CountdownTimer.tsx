@@ -28,7 +28,6 @@ const CountdownTimer = ({currentData,setCurrentData,key,setKey}:any) => {
 
   try {
     const res = await requestOtp(currentData.email).unwrap();
-console.log(res);
 
 
     // Handle the success response here.
@@ -53,7 +52,7 @@ console.log(res);
 };
 
   return (
-    <div className="w-full flex justify-center items-center">
+    <div className="w-full flex justify-center h-[100vh] items-center">
       <CountdownCircleTimer
         key={key}
         isPlaying
@@ -68,7 +67,7 @@ console.log(res);
           if (remainingTime === 0) {
             return (
               <Button onClick={restartTimer} isDisabled={isLoading}>
-                Restart Timer
+              Request Otp Again
               </Button>
             );
           } else {

@@ -1,7 +1,5 @@
 import { addDatas, setCurrent } from '@/state/slices/AuthFormSlice';
-import { RootState } from '@/state/store';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Button, Input } from '@nextui-org/react';
+
 import React from 'react';
 
 

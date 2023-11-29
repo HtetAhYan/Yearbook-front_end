@@ -1,0 +1,4 @@
+User-Agent:*
+Allow: /
+Disallow:/get-started
+Sitemap: https://acme.com/sitemap.xml

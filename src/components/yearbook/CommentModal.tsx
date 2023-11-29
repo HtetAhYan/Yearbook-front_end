@@ -13,7 +13,6 @@ export const Comment = ({ comment }: any) => {
   const toggleLike = () => {
     setIsLiked(!isLiked);
   };
-  console.log(comment);
   const user = useSelector((state: RootState) => state.auth.user)
   const [deleteComment,{isLoading}]=useDeleteCommentMutation()
   return (

@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin:wght@600&display=swap');
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+@layer base {
+  html {
+   
+
+  }
+}
+.h1{
+  font-family: 'Poppins', sans-serif;
+
+}
+.hero{
+  font-family: 'Cabin', sans-serif;
+}
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+@layer utilities {
+  .text-stroke {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: currentColor;
+  }
+}
+.gradient {
+  border: 7px solid transparent;
+  
+  border-image: linear-gradient(to right, #4505b4, #06a29c,#0c2092); /* Replace with your desired gradient colors */
+  border-image-slice: 1;
+}
+
+/*** Your CSS code ***/
+.christmas {
+border-style: solid;
+border-width: 12px 10px 12px 10px;
+-moz-border-image: url(../assets/christmasborder.jpg) 575 665 303 931 fill repeat;
+-webkit-border-image: url(../assets/christmasborder.jpg) 575 665 303 931 round repeat;
+-o-border-image:url(../assets/christmasborder.jpg) 575 665 303 931 round repeat;
+border-image: url(../assets/christmasborder.jpg) 575 665 303 931 round repeat;
+
+}
+.background-search{
+  background-image: url('../assets/christmasborder.jpg');
+  background-position: center 20%;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.animated-border {
+    border: 7px dotted #260e40; /* Dark Blue */
+    transition: border 1s cubic-bezier(0.77, 0, 0.175, 1); /* Adjust duration and timing function */
+}
+
+.animated-border:hover {
+    border-style: dashed;
+}
+.animated-dashed{
+    border: 7px dashed #260e40; /* Dark Blue */
+    transition: border 1s cubic-bezier(0.77, 0, 0.175, 1); /* Adjust duration and timing function */
+}
+.animated-dashed:hover {
+    border-style: inset;
+}
+.intro-text {
+   /* Adjust the font size as needed */
+  animation: pulseAnimation 1.4s ease-in-out infinite;
+  text-shadow: 0 0 3px white;
+}
+
+@keyframes pulseAnimation {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+ transform: scale(1.02);
+    opacity: 1;
+     text-shadow: 0 0 5px white;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}

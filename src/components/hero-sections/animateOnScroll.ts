@@ -12,7 +12,6 @@ export default function animateOnScroll(end:any) {
       start: 0,
       end: end,
       scrub: true,
-      markers: true,
     },
   });
     return timeLine;

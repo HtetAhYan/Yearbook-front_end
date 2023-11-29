@@ -9,6 +9,7 @@ import PrepareProfileReducer  from "./features/PrepareProfileSlice";
 import yearbookReducer from "./features/yearbookSlices/yearbookSlice";
 import ProfileSettingReducer from './features/ProfileSettingSlice';
 import passwordForgotReducer from './features/passwordForgotSlice';
+import LoaderReducer from './slices/LoaderSlice';
 
 const rootReducer = combineReducers({
   authForm: AuthFormReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   cardStructur: cardStructureReducer,
   yearbook: yearbookReducer,
   forgotPassword: passwordForgotReducer,
+  loader:LoaderReducer
 
 
 });

@@ -70,7 +70,6 @@ const saveSettings = async ({ save, dispatch, setting, FullName, router, refresh
       toast.error(saveResponse || "Something went wrong. Check your password or try again later");
     }
   } catch (error) {
-    console.error("Error in saveSettings:", error);
     // Handle errors appropriately
   }
 };

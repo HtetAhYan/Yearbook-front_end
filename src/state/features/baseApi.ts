@@ -23,7 +23,6 @@ export const baseApi = createApi({
         postProfile: builder.mutation({
             query: (data) => {
                 const { id, file } = data
-                console.log('data', file);
 
                 const form = new FormData()
                 form.append('profile', file)
@@ -49,7 +48,6 @@ export const baseApi = createApi({
                     borderType: cardDatas.border,
                     userProfile:user.profileURL
                 }
-                console.log('array', array);
                 const jsonData = JSON.stringify(array);
                  const jsonBlob = new Blob([jsonData], { type: "application/json" });
                 const form = new FormData()
@@ -95,14 +93,12 @@ export const baseApi = createApi({
   return { type: 'COMMENT', id: res?.id || 'UNKNOWN_ID' };
 });
 
-console.log('All Comment Tags:', commentTags);
     return [
       ...commentTags,
       { type: 'COMMENT', id: 'LIST' },
       { type: 'COMMENT', id: 'content' },
     ];
   } else {
-    console.log('No result, providing default tags.');
     return [
       { type: 'COMMENT', id: 'LIST' },
       { type: 'COMMENT', id: 'content' },

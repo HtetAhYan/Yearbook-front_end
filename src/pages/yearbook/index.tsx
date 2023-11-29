@@ -25,7 +25,6 @@ const params=useSelector((state:RootState)=>state.yearbook)
     , limit: params.limit !== null ? params.limit : 10
     ,keyword:params.keyword!==null?params.keyword:""
   });
-console.log(isFetching);
 
  isError && toast.error("Network Error");
   return (
